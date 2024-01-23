@@ -18,6 +18,14 @@ def generate_launch_description():
             description='aruco marker id to detect'
         )
     )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            'aruco_length',
+            default_value='0.03',
+            description='marker size, unit: [m]'
+        )
+    )
+    
     # refer to: https://github.com/IntelRealSense/realsense-ros?tab=readme-ov-file#camera-name-and-camera-namespace
     declared_arguments.append(
         DeclareLaunchArgument(
@@ -42,6 +50,7 @@ def generate_launch_description():
     )
     
     aruco_id = LaunchConfiguration('aruco_id')
+    aruco_length = LaunchConfiguration('aruco_length')
     camera_name = LaunchConfiguration('camera_name')
     tf_prefix = LaunchConfiguration('tf_prefix')
     view_image = LaunchConfiguration('view_image')
@@ -76,6 +85,7 @@ def generate_launch_description():
             'image_info_topic': image_info_topic,
             'view_image': view_image,
             'aruco_id': aruco_id,
+            'aruco_length': aruco_length,
             'camera_color_optical_frame': camera_color_optical_frame,
             'aruco_marker_frame': 'aruco_marker_frame',
         }],

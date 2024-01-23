@@ -49,6 +49,9 @@ class DetectAruco(Node):
         
         self.declare_parameter("aruco_id", 2, ParameterDescriptor(
             name="aruco_id", description="aruco marker id to detect"))
+        
+        self.declare_parameter("aruco_length", 0.03, ParameterDescriptor(
+            name="aruco_length", description="marker size, unit: [m]"))
  
         self.declare_parameter("camera_color_optical_frame", "camera_color_optical_frame", ParameterDescriptor(
             name="camera_color_optical_frame", description="frame id of the camera color optical frame"))
@@ -73,6 +76,7 @@ class DetectAruco(Node):
         self.view_img = self.get_parameter("view_image").value  # whether to show the detect result in a window
         
         self.aruco_id = self.get_parameter("aruco_id").value    # aruco marker id to detect
+        self.aruco_length = self.get_parameter("aruco_length").value  # marker size, unit: [m]
         
         self.camera_color_optical_frame = self.get_parameter("camera_color_optical_frame").value
         self.aruco_marker_frame = self.get_parameter("aruco_marker_frame").value
@@ -98,8 +102,7 @@ class DetectAruco(Node):
             camera_intrinsic = np.array(self.image_info.k, dtype=np.float32).reshape((3, 3))
             distortion_parameter = np.array(self.image_info.d, dtype=np.float32).reshape((1, 5))
             
-            aruco_length = 0.05     # length of aruco marker side, unit: meter
-            rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners, aruco_length, camera_intrinsic, distortion_parameter)
+            rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners, self.aruco_length, camera_intrinsic, distortion_parameter)
             cv2.aruco.drawAxis(img_draw, camera_intrinsic, distortion_parameter, rvec, tvec, 0.03)
             
             # only publish tf of the specified aruco marker

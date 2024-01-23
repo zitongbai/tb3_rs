@@ -16,6 +16,11 @@ Follow the guide [here](https://github.com/IntelRealSense/realsense-ros?tab=read
 
 Use this [website](https://chev.me/arucogen/) to create aruco markers.
 
+Here we use:
+* Dictionary: 5X5_100
+* Marker ID: 2
+* Marker size, mm: 30
+
 # Holder for Realsense D435i on Turtlebot3
 
 The Holder is open source in Onshape, you can find it [here](https://cad.onshape.com/documents/24112f12386c9f300bcb48f1/w/f9089eb5553dd3a8dba69c14/e/38a24e07db00767a4b30a8ab?renderMode=0&uiState=65af5e19f3fc09601e162a00).
